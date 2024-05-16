@@ -20,8 +20,9 @@ export const useGetMyUser = () => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to Fetch User");
+      throw new Error("Failed to fetch user");
     }
+
     return response.json();
   };
 
@@ -35,16 +36,12 @@ export const useGetMyUser = () => {
     toast.error(error.toString());
   }
 
-  return {
-    currentUser,
-    isLoading,
-    error,
-  };
+  return { currentUser, isLoading };
 };
 
 type CreateUserRequest = {
-  auth0Id: String;
-  email: String;
+  auth0Id: string;
+  email: string;
 };
 
 export const useCreateMyUser = () => {
@@ -52,9 +49,8 @@ export const useCreateMyUser = () => {
 
   const createMyUserRequest = async (user: CreateUserRequest) => {
     const accessToken = await getAccessTokenSilently();
-
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
@@ -66,6 +62,7 @@ export const useCreateMyUser = () => {
       throw new Error("Failed to create user");
     }
   };
+
   const {
     mutateAsync: createUser,
     isLoading,
