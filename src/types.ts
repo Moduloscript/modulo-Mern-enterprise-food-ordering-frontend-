@@ -8,12 +8,15 @@ export type User = {
   };
   
   export type MenuItem = {
+    id: Key | null | undefined;
     _id: string;
     name: string;
     price: number;
   };
   
   export type Restaurant = {
+    name: string | undefined;
+    image: string | undefined;
     _id: string;
     user: string;
     restaurantName: string;
